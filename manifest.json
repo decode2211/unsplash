@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Unsplash New Tab",
+  "description": "Beautiful random wallpapers every new tab.",
+  "version": "1.0",
+
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+
+  "permissions": [
+    "storage"
+  ],
+
+  "host_permissions": [
+    "https://api.unsplash.com/*",
+    "https://images.unsplash.com/*"
+  ]
+}
