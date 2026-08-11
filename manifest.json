@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Unsplash New Tab",
-  "description": "Beautiful random wallpapers every new tab.",
+  "name": "AuraTab",
+  "description": "A beautiful new tab page with random wallpapers, a live clock, and Google search.",  
   "version": "1.0",
 
   "chrome_url_overrides": {

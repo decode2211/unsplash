@@ -27,21 +27,37 @@ async function loadWallpaper() {
 
         image.src = imageUrl;
 
-        // Photographer credit
+        // Photographer + Unsplash attribution
         const credit = document.getElementById("credit");
 
         credit.innerHTML = "";
 
         const text = document.createTextNode("Photo by ");
-        const link = document.createElement("a");
 
-        link.href = data.user.links.html;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.textContent = data.user.name;
+        const photographerLink = document.createElement("a");
+
+        photographerLink.href =
+            `${data.user.links.html}?utm_source=auratab&utm_medium=referral`;
+
+        photographerLink.target = "_blank";
+        photographerLink.rel = "noopener noreferrer";
+        photographerLink.textContent = data.user.name;
+
+        const unsplashText = document.createTextNode(" on ");
+
+        const unsplashLink = document.createElement("a");
+
+        unsplashLink.href =
+            "https://unsplash.com/?utm_source=auratab&utm_medium=referral";
+
+        unsplashLink.target = "_blank";
+        unsplashLink.rel = "noopener noreferrer";
+        unsplashLink.textContent = "Unsplash";
 
         credit.appendChild(text);
-        credit.appendChild(link);
+        credit.appendChild(photographerLink);
+        credit.appendChild(unsplashText);
+        credit.appendChild(unsplashLink);
 
     } catch (error) {
         console.error("Failed to load Unsplash wallpaper:", error);
