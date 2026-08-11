@@ -15,17 +15,26 @@
         <div id="clock"></div>
 
         <div id="search-container">
-    <span id="search-icon">⌕</span>
 
-    <input
-        id="search-input"
-        type="text"
-        placeholder="Search the web..."
-        autocomplete="off"
-    />
+            <span id="search-icon">⌕</span>
 
-    <button id="clear-search" type="button">×</button>
-    </div>
+            <form id="search-form">
+                <input
+                    id="search-input"
+                    type="text"
+                    placeholder="Search the web..."
+                    autocomplete="off"
+                />
+            </form>
+
+            <button
+                id="clear-search"
+                type="button"
+                aria-label="Clear search">
+                ×
+            </button>
+
+        </div>
 
         <div id="credit"></div>
 

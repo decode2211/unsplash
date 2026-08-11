@@ -1,7 +1,7 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -17,63 +17,216 @@ body {
     font-family: Arial, sans-serif;
 }
 
-#overlay{
+/* Dark overlay */
+#overlay {
+    width: 100%;
+    height: 100%;
 
-    width:100%;
-    height:100%;
+    display: flex;
+    flex-direction: column;
 
-    display:flex;
+    justify-content: center;
+    align-items: center;
 
-    flex-direction:column;
+    background: rgba(0, 0, 0, 0.30);
 
-    justify-content:center;
-
-    align-items:center;
-
-    background:rgba(0,0,0,.35);
-
-    color:white;
-
+    color: white;
 }
 
-#clock{
+/* Clock */
+#clock {
+    font-size: 80px;
+    font-weight: bold;
 
-    font-size:80px;
+    margin-bottom: 35px;
 
-    font-weight:bold;
-
-    margin-bottom:30px;
-
-    text-shadow:0 2px 10px black;
-
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.8);
 }
 
-input{
+/* =========================
+   SEARCH BAR
+   ========================= */
 
-    width:600px;
+#search-container {
+    position: relative;
 
-    max-width:90vw;
+    width: 600px;
+    max-width: 85vw;
+    height: 62px;
 
-    padding:16px;
+    display: flex;
+    align-items: center;
 
-    border:none;
+    background: rgba(255, 255, 255, 0.88);
 
-    border-radius:50px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
 
-    outline:none;
+    border-radius: 50px;
 
-    font-size:20px;
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.25),
+        inset 0 1px 1px rgba(255, 255, 255, 0.8);
 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
 }
 
-#credit{
+/* Search icon */
+#search-icon {
+    position: absolute;
 
-    position:absolute;
+    left: 23px;
 
-    bottom:20px;
+    top: 50%;
+    transform: translateY(-50%);
 
-    right:20px;
+    width: 22px;
+    height: 22px;
 
-    font-size:14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    color: #555;
+
+    font-size: 24px;
+
+    pointer-events: none;
+}
+
+/* Search form */
+#search-form {
+    width: 100%;
+    height: 100%;
+}
+
+/* Input */
+#search-input {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    padding: 0 58px 0 58px;
+
+    font-size: 20px;
+
+    color: #222;
+}
+
+/* Placeholder */
+#search-input::placeholder {
+    color: #666;
+    opacity: 1;
+}
+
+/* Focus effect */
+#search-container:focus-within {
+    background: rgba(255, 255, 255, 0.96);
+
+    transform: scale(1.015);
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.35),
+        0 0 0 3px rgba(255, 255, 255, 0.18);
+}
+
+/* Clear button */
+#clear-search {
+    position: absolute;
+
+    right: 18px;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 30px;
+    height: 30px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.08);
+
+    color: #555;
+
+    font-size: 20px;
+    line-height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* Show clear button when typing */
+#search-container.has-text #clear-search {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Clear hover */
+#clear-search:hover {
+    background: rgba(0, 0, 0, 0.16);
+
+    transform: translateY(-50%) scale(1.08);
+}
+
+/* Photographer credit */
+#credit {
+    position: absolute;
+
+    bottom: 20px;
+    right: 20px;
+
+    font-size: 14px;
+
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+#credit a {
+    color: white;
+
+    text-decoration: underline;
+
+    text-underline-offset: 2px;
+}
+
+#credit a:hover {
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+
+    #clock {
+        font-size: 55px;
+    }
+
+    #search-container {
+        width: 90vw;
+        height: 56px;
+    }
+
+    #search-input {
+        font-size: 18px;
+    }
 }
