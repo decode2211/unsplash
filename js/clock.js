@@ -1,91 +1,23 @@
+// clock.js
+// Picks which design shows today, mounts it into #clock, hands ticking off to ClockEngine.
+// Deterministic by date — no storage, nothing to get out of sync. If AuraTab isn't
+// open at midnight, it just picks correctly whenever it's next opened.
+
 document.addEventListener("DOMContentLoaded", () => {
-  const clock = document.getElementById('clock');
-  if (!clock) return;
+  const container = document.getElementById("clock");
+  if (!container || CLOCK_DESIGNS.length === 0) return;
 
-  clock.classList.add('skyline-clock');
+  const dayIndex = dayOfEpoch(new Date());
+  const design = CLOCK_DESIGNS[dayIndex % CLOCK_DESIGNS.length];
 
-  const skyline = document.createElement('div');
-  skyline.className = 'skyline';
-  clock.appendChild(skyline);
-
-  const clockwrap = document.createElement('div');
-  clockwrap.className = 'clockwrap';
-  clock.appendChild(clockwrap);
-
-  const labels = document.createElement('div');
-  labels.className = 'labels';
-  labels.innerHTML =
-    '<div class="group-label">Hour</div>' +
-    '<div class="group-label">Min</div>' +
-    '<div class="group-label">Sec</div>';
-  clock.appendChild(labels);
-
-  const groups = [
-    { cls: 'h', cols: 2 },
-    { cls: 'm', cols: 2 },
-    { cls: 's', cols: 2 }
-  ];
-
-  const colRefs = [];
-
-  groups.forEach((g, gi) => {
-    const groupEl = document.createElement('div');
-    groupEl.className = 'group';
-    for (let c = 0; c < g.cols; c++) {
-      const col = document.createElement('div');
-      col.className = 'col';
-      col.dataset.cls = g.cls;
-      col.dataset.value = -1;
-      const baseline = document.createElement('div');
-      baseline.className = 'baseline';
-      col.appendChild(baseline);
-      groupEl.appendChild(col);
-      colRefs.push(col);
-    }
-    clockwrap.appendChild(groupEl);
-    if (gi < groups.length - 1) {
-      const sep = document.createElement('div');
-      sep.className = 'sep';
-      sep.innerHTML = '<span></span><span></span>';
-      clockwrap.appendChild(sep);
-    }
-  });
-
-  function renderColumn(col, digit) {
-    if (parseInt(col.dataset.value, 10) === digit) return;
-    col.dataset.value = digit;
-
-    [...col.querySelectorAll('.block,.slot')].forEach(n => n.remove());
-
-    for (let i = 0; i < 9; i++) {
-      if (i < digit) {
-        const b = document.createElement('div');
-        b.className = 'block ' + col.dataset.cls;
-        b.style.animationDelay = (i * 35) + 'ms';
-        col.appendChild(b);
-      } else {
-        const s = document.createElement('div');
-        s.className = 'slot';
-        col.appendChild(s);
-      }
-    }
-  }
-
-  function tick() {
-    const now = new Date();
-    const h = now.getHours();
-    const m = now.getMinutes();
-    const s = now.getSeconds();
-
-    const digits = [
-      Math.floor(h / 10), h % 10,
-      Math.floor(m / 10), m % 10,
-      Math.floor(s / 10), s % 10
-    ];
-
-    digits.forEach((d, i) => renderColumn(colRefs[i], d));
-  }
-
-  tick();
-  setInterval(tick, 1000);
+  design.mount(container);
+  ClockEngine.start(design);
 });
+
+// Whole numbers of days since epoch, in local time. Using a plain day count
+// (not just the date string) makes rotation order stable and predictable —
+// day N always maps to the same design index.
+function dayOfEpoch(date) {
+  const local = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  return Math.floor(local.getTime() / 86400000);
+}

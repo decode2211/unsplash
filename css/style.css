@@ -267,3 +267,7 @@ body {
 @keyframes clockPulse{ 0%,100%{opacity:0.25; transform:scale(1);} 50%{opacity:0.85; transform:scale(1.25);} }
 #clock .labels{ display:flex; gap:18px; margin-top:16px; position:relative; z-index:2; }
 #clock .labels .group-label{ width:76px; text-align:center; color:var(--label); font-size:11px; letter-spacing:0.28em; text-transform:uppercase; font-weight:600; }
+
+
+
+
