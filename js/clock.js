@@ -16,15 +16,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let lastGreeting = "";
   function updateGreeting(h) {
-    let text;
-    if (h < 5) text = "Good night";
-    else if (h < 12) text = "Good morning";
-    else if (h < 17) text = "Good afternoon";
-    else if (h < 21) text = "Good evening";
-    else text = "Good night";
+    let timeOfDay;
+    if (h < 5) timeOfDay = "Good night";
+    else if (h < 12) timeOfDay = "Good morning";
+    else if (h < 17) timeOfDay = "Good afternoon";
+    else if (h < 21) timeOfDay = "Good evening";
+    else timeOfDay = "Good night";
+
+    const name = AuraStorage.get("userName", null);
+    const text = name ? timeOfDay + ", " + name : timeOfDay;
+
     if (text !== lastGreeting) {
       lastGreeting = text;
       greetingEl.textContent = text;
+    }
+  }
+
+  // First run only: ask what to call them, store it, never ask again.
+  if (AuraStorage.get("userName", null) === null) {
+    const entered = window.prompt("What should I call you?");
+    if (entered && entered.trim()) {
+      AuraStorage.set("userName", entered.trim());
+    } else {
+      // remember they were asked so we don't re-prompt every new tab
+      AuraStorage.set("userName", "");
     }
   }
 
