@@ -10,9 +10,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const dayIndex = dayOfEpoch(new Date());
   const design = CLOCK_DESIGNS[dayIndex % CLOCK_DESIGNS.length];
 
+  const greetingEl = document.createElement("div");
+  greetingEl.id = "greeting";
+  container.parentNode.insertBefore(greetingEl, container);
+
+  let lastGreeting = "";
+  function updateGreeting(h) {
+    let text;
+    if (h < 5) text = "Good night";
+    else if (h < 12) text = "Good morning";
+    else if (h < 17) text = "Good afternoon";
+    else if (h < 21) text = "Good evening";
+    else text = "Good night";
+    if (text !== lastGreeting) {
+      lastGreeting = text;
+      greetingEl.textContent = text;
+    }
+  }
+
+  // Wrap the design so the engine's single tick also refreshes the greeting.
+  // clock-designs.js and clock-engine.js stay untouched.
+  const wrappedDesign = {
+    mount: (el) => design.mount(el),
+    update(h, m, s) {
+      design.update(h, m, s);
+      updateGreeting(h);
+    }
+  };
+
   container.classList.add("clock-frame");
-  design.mount(container);
-  ClockEngine.start(design);
+  wrappedDesign.mount(container);
+  updateGreeting(new Date().getHours());
+  ClockEngine.start(wrappedDesign);
 });
 
 // Whole numbers of days since epoch, in local time. Using a plain day count
