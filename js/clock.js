@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const dayIndex = dayOfEpoch(new Date());
   const design = CLOCK_DESIGNS[dayIndex % CLOCK_DESIGNS.length];
 
+  container.classList.add("clock-frame");
   design.mount(container);
   ClockEngine.start(design);
 });
