@@ -409,20 +409,25 @@ body {
 #clock.stamp-clock{ display:flex; flex-direction:column; align-items:center; }
 #clock .stamp-wrap{ gap:16px; }
 #clock .stamp-digit{
-  width:64px;
-  height:96px;
+  position:relative;
+  width:68px;
+  height:100px;
   display:flex;
   align-items:center;
   justify-content:center;
   font-family:Georgia, 'Times New Roman', serif;
   font-weight:700;
   font-size:64px;
-  color:#f2ece0;
-  background:rgba(255,255,255,0.04);
-  border:2px solid rgba(242,236,224,0.18);
-  border-radius:6px;
+  color:#f6f1e6;
+  background:linear-gradient(155deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+  border:1.5px solid rgba(246,241,230,0.30);
+  border-radius:10px;
   transform:rotate(var(--tilt, 0deg));
-  text-shadow:0 2px 0 rgba(0,0,0,0.4);
+  text-shadow:0 3px 0 rgba(0,0,0,0.55), 0 6px 14px rgba(0,0,0,0.35);
+  box-shadow:
+    0 10px 26px rgba(0,0,0,0.30),
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    inset 0 -14px 20px -14px rgba(0,0,0,0.35);
 }
 #clock .stamp-digit.stamp-hit{
   animation:stampHit 320ms cubic-bezier(.2,.8,.3,1.2);
