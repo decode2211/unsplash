@@ -31,3 +31,10 @@ searchForm.addEventListener("submit", (event) => {
     window.location.href =
         `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 });
+
+// Collapsed pill has pointer-events:none on the input until hover/focus
+// finishes expanding it — a fast click could land before that happens.
+// Clicking anywhere on the container reliably focuses the input instead.
+searchContainer.addEventListener("click", () => {
+    searchInput.focus();
+});
