@@ -85,27 +85,26 @@ body {
 }
 
 
-/* Search icon */
 #search-icon {
     position: absolute;
-
-    left: 23px;
-
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
-
+    transform: translate(-50%, -50%);
     width: 22px;
     height: 22px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     color: #555;
-
-    font-size: 24px;
-
+    font-size: 22px;
     pointer-events: none;
+    transition: left 320ms cubic-bezier(.4,0,.2,1), transform 320ms cubic-bezier(.4,0,.2,1);
+}
+
+#search-container:hover #search-icon,
+#search-container:focus-within #search-icon {
+    left: 23px;
+    transform: translateY(-50%);
 }
 
 /* Search form */
