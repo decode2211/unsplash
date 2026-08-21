@@ -50,17 +50,18 @@ body {
 #search-container {
     position: relative;
 
-    width: 600px;
+    width: 64px;
     max-width: 85vw;
     height: 62px;
 
     display: flex;
     align-items: center;
 
+    overflow: hidden;
+    cursor: pointer;
+
     background: rgba(255, 255, 255, 0.88);
-
     border: 1px solid rgba(255, 255, 255, 0.7);
-
     border-radius: 50px;
 
     box-shadow:
@@ -71,10 +72,18 @@ body {
     -webkit-backdrop-filter: blur(15px);
 
     transition:
+        width 320ms cubic-bezier(.4,0,.2,1),
         transform 0.25s ease,
         box-shadow 0.25s ease,
         background 0.25s ease;
 }
+
+#search-container:hover,
+#search-container:focus-within {
+    width: 600px;
+    cursor: text;
+}
+
 
 /* Search icon */
 #search-icon {
